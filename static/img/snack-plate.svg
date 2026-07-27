@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Snack plate">
+  <rect width="640" height="480" rx="40" fill="#fff7eb"/>
+  <rect x="106" y="120" width="428" height="260" rx="32" fill="#f2d8b5"/>
+  <rect x="154" y="166" width="332" height="168" rx="26" fill="#8c5520"/>
+  <rect x="188" y="200" width="92" height="92" rx="18" fill="#d68c42"/>
+  <rect x="302" y="200" width="120" height="92" rx="18" fill="#cf8c4c"/>
+  <path d="M196 310h246" stroke="#fff5e3" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="480" cy="180" r="34" fill="#f6c06a"/>
+</svg>

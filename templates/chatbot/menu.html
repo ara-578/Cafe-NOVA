@@ -1,0 +1,85 @@
+{% extends "chatbot/base.html" %}
+{% block title %}Menu · Café Nova{% endblock %}
+{% block content %}
+<section class="page-hero reveal">
+  <span class="eyebrow">Café Nova Menu</span>
+  <h1>Elevated comfort, one sip at a time.</h1>
+  <p>From bold espresso rituals to fresh juices, loaded snacks and layered desserts — every dish is crafted to feel indulgent and memorable.</p>
+</section>
+
+<section class="menu-filter-bar reveal">
+  <button class="filter-chip active" data-filter="all">All</button>
+  <button class="filter-chip" data-filter="hot">☕ Hot Beverages</button>
+  <button class="filter-chip" data-filter="cold">🥤 Cold Beverages</button>
+  <button class="filter-chip" data-filter="juice">🍹 Fresh Juices</button>
+  <button class="filter-chip" data-filter="snack">🥐 Snacks</button>
+  <button class="filter-chip" data-filter="dessert">🍰 Desserts</button>
+</section>
+
+<section class="menu-full reveal">
+  {% regroup menu_items by category as category_list %}
+  {% for category in category_list %}
+  <div class="menu-category" data-category="{{ category.grouper }}">
+    <h2>{{ category.list.0.category_icon }} {{ category.list.0.get_category_display }}</h2>
+    <div class="card-grid">
+      {% for item in category.list %}
+      <article class="menu-card glass float-card">
+        <button class="fav-btn" data-favorite aria-label="Add to favorites"><i class="fa-regular fa-heart"></i></button>
+        <img src="{{ item.image_url|default:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80' }}" alt="{{ item.name }}" loading="lazy">
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <span class="badge">{{ item.category_icon }} {% if item.is_special %}Chef's Special{% else %}{{ item.get_category_display }}{% endif %}</span>
+            <span class="price">${{ item.price }}</span>
+          </div>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description|default:'Savor our premium crafted café favorite, perfected for every visit.' }}</p>
+          <div class="menu-details">
+            <span class="rating-stars">⭐⭐⭐⭐⭐ <em>{{ item.rating }}</em></span>
+            <span>⏱ {{ item.prep_time }}</span>
+            <span>🔥 {{ item.calories }}</span>
+          </div>
+          <p class="ingredients-line">Ingredients: {{ item.ingredients }}</p>
+          <div class="menu-actions">
+            <button class="btn btn-primary small" data-name="{{ item.name }}" data-price="{{ item.price }}" data-add-to-cart>Add to Cart</button>
+            <a href="{% url 'home' %}#order" class="btn btn-ghost small">Order Now</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+  {% empty %}
+  <p class="empty-state">The menu is brewing... check back soon.</p>
+  {% endfor %}
+</section>
+
+<section class="cta-strip glass reveal">
+  <p>Still wondering what to pick? Let Velvet AI guide you.</p>
+  <a href="{% url 'home' %}#chat" class="btn btn-primary">Chat with Velvet AI</a>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.querySelectorAll('[data-favorite]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      const icon = btn.querySelector('i');
+      icon.className = btn.classList.contains('active') ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+    });
+  });
+
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const categories = document.querySelectorAll('.menu-category');
+  filterChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      const filter = chip.dataset.filter;
+      categories.forEach((cat) => {
+        cat.style.display = (filter === 'all' || cat.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+{% endblock %}

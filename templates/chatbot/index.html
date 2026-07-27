@@ -1,0 +1,278 @@
+{% extends "chatbot/base.html" %}
+{% load static %}
+{% block content %}
+<section class="hero reveal" id="home">
+  <div class="hero-copy glass">
+    <span class="pill">☕ Premium AI Café Experience</span>
+    <h1>Crafted with Passion.<br><span class="accent">Brewed for You.</span></h1>
+    <p>Discover handcrafted coffees, artisan pastries, and serene café moments at Café Nova while chatting with Velvet AI — your intelligent café concierge.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn btn-primary">Explore Menu</a>
+      <a href="#order" class="btn btn-ghost">Order Online</a>
+      <a href="#chat" class="btn btn-ghost">Chat with Velvet AI</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>5000+</strong><span>Happy Guests</span></div>
+      <div><strong>35+</strong><span>Signature Drinks</span></div>
+      <div><strong>12+</strong><span>Signature Desserts</span></div>
+    </div>
+  </div>
+  <div class="hero-media reveal">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" alt="Barista crafting a premium coffee at Café Nova" loading="eager">
+    <div class="hero-card glass">
+      <h3>Today’s specialty</h3>
+      <p>Velvet Caramel Latte with house-made caramel and roasted bean finish.</p>
+      <span class="price-tag">$5.25</span>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip reveal">
+  <div class="feature-card glass">
+    <h3>Artisan Coffee</h3>
+    <p>Single-origin beans, slow extraction, and smooth finishes.</p>
+  </div>
+  <div class="feature-card glass">
+    <h3>AI Recommendations</h3>
+    <p>Velvet AI helps you choose based on mood, taste, and cravings.</p>
+  </div>
+  <div class="feature-card glass">
+    <h3>Fast Delivery</h3>
+    <p>Freshly prepared drinks and bites delivered with care.</p>
+  </div>
+</section>
+
+<section class="section reveal" id="about">
+  <div class="section-heading">
+    <span class="eyebrow">About Café Nova</span>
+    <h2>Where comfort meets craftsmanship.</h2>
+    <p>We blend warm hospitality, striking interiors, and premium coffee rituals into a modern café experience that feels effortless and luxurious.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-card glass">
+      <h3>Our Story</h3>
+      <p>Started as a neighborhood roastery dream, Café Nova grew into a destination for cozy rituals, memorable brunches, and beautiful coffee moments.</p>
+    </div>
+    <div class="about-card glass">
+      <h3>Our Mission</h3>
+      <p>To make every visit feel like a beautiful pause — a cup of comfort, a moment of calm, and a taste of excellence.</p>
+    </div>
+    <div class="about-card glass">
+      <h3>Coffee Philosophy</h3>
+      <p>We honor origin, texture, and flavor with every pour, roast, and presentation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="menu">
+  <div class="section-heading">
+    <span class="eyebrow">Signature Menu</span>
+    <h2>Freshly brewed favorites.</h2>
+    <p>Every item is designed to delight, whether you want a bold espresso, a chilled latte, or a warm pastry.</p>
+  </div>
+  <div class="card-grid">
+    {% for item in menu_items|slice:":12" %}
+    <article class="menu-card glass">
+      <img src="{% if item.image_url %}{{ item.image_url }}{% else %}{% static 'img/coffee-cup.svg' %}{% endif %}" alt="{{ item.name }}" loading="lazy">
+      <div class="menu-card-body">
+        <div class="menu-card-top">
+          <span class="badge">{% if item.is_special %}Special{% else %}Featured{% endif %}</span>
+          <span class="price">${{ item.price }}</span>
+        </div>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description|default:'A premium crafted choice from our café menu, made to elevate every sip and bite.' }}</p>
+        <div class="menu-details">
+          <span>⭐ {{ item.rating }}</span>
+          <span>⏱ {{ item.prep_time }}</span>
+          <span>🔥 {{ item.calories }}</span>
+          <span>Ingredients: {{ item.ingredients }}</span>
+        </div>
+        <div class="menu-actions">
+          <button class="btn btn-primary small" data-name="{{ item.name }}" data-price="{{ item.price }}" data-add-to-cart>Add to Cart</button>
+          <a href="#order" class="btn btn-ghost small">Order Now</a>
+        </div>
+      </div>
+    </article>
+    {% empty %}
+    <p class="empty-state">The menu is still being curated. Please visit again soon.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section reveal" id="gallery">
+  <div class="section-heading">
+    <span class="eyebrow">Gallery</span>
+    <h2>A visual story of warmth and flavor.</h2>
+  </div>
+  <div class="masonry-grid">
+    <figure class="masonry-item tall">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="Signature coffee bar at Café Nova" loading="lazy">
+      <figcaption class="glass"><span>Hot Drinks</span>Signature Bar</figcaption>
+    </figure>
+    <figure class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80" alt="Artisan dessert plating at the café" loading="lazy">
+      <figcaption class="glass"><span>Pastries</span>Layered Indulgence</figcaption>
+    </figure>
+    <figure class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80" alt="Fresh berry dessert served in a chic café" loading="lazy">
+      <figcaption class="glass"><span>Berry Desserts</span>Fresh & Lush</figcaption>
+    </figure>
+    <figure class="masonry-item tall">
+      <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80" alt="Premium cold coffee served with elegance" loading="lazy">
+      <figcaption class="glass"><span>Cold Coffee</span>Chilled Favorites</figcaption>
+    </figure>
+    <figure class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80" alt="Velvet cappuccino with latte art" loading="lazy">
+      <figcaption class="glass"><span>Crafted</span>Latte Art</figcaption>
+    </figure>
+    <figure class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Designer café interior with premium ambiance" loading="lazy">
+      <figcaption class="glass"><span>Ambience</span>Luxury Atmosphere</figcaption>
+    </figure>
+    <figure class="masonry-item tall">
+      <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80" alt="Fresh berry juice and café service" loading="lazy">
+      <figcaption class="glass"><span>Juices</span>Bright & Refreshing</figcaption>
+    </figure>
+    <figure class="masonry-item">
+      <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=900&q=80" alt="Guests enjoying a cozy café moment" loading="lazy">
+      <figcaption class="glass"><span>Gathering</span>Cozy Moments</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section reveal" id="order">
+  <div class="section-heading">
+    <span class="eyebrow">Order Online</span>
+    <h2>Order Your Favorites Anytime</h2>
+    <p>Order freshly brewed coffee, handcrafted beverages, delicious snacks, desserts, and café specials directly from our website. Enjoy fast preparation, secure payments, real-time order updates, and doorstep delivery. Experience convenience with just a few clicks while our AI assistant helps you discover the perfect meal based on your preferences.</p>
+  </div>
+
+  <div class="order-features">
+    <div class="order-feature glass"><i class="fa-solid fa-robot"></i><h4>AI Food Recommendation</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-cart-shopping"></i><h4>Online Ordering</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-lock"></i><h4>Secure Payments</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-bolt"></i><h4>Fast Delivery</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-location-dot"></i><h4>Live Order Tracking</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-bag-shopping"></i><h4>Pickup Option</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-gift"></i><h4>Reward Points</h4></div>
+    <div class="order-feature glass"><i class="fa-solid fa-headset"></i><h4>24/7 AI Assistance</h4></div>
+  </div>
+
+  <div class="order-layout">
+    <div class="order-cards">
+      {% for item in menu_items %}
+      <div class="order-item glass">
+        <div>
+          <strong>{{ item.name }}</strong>
+          <p>{{ item.description }}</p>
+        </div>
+        <div class="order-item-actions">
+          <span>${{ item.price }}</span>
+          <button class="btn btn-primary small" data-name="{{ item.name }}" data-price="{{ item.price }}" data-add-to-cart>Add</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <aside class="cart-panel glass" id="cartPanel">
+      <div class="cart-header">
+        <h3>Your Order</h3>
+        <span class="pill subtle">Fast delivery</span>
+      </div>
+      <div id="cartItems" class="cart-items">
+        <p class="cart-empty">Your curated order is waiting.</p>
+      </div>
+      <div class="coupon-box">
+        <input type="text" id="couponInput" placeholder="Coupon code">
+        <button class="btn btn-ghost small" id="applyCoupon">Apply</button>
+      </div>
+      <div class="cart-summary">
+        <div><span>Subtotal</span><strong id="subtotal">$0</strong></div>
+        <div><span>Delivery</span><strong>$2.50</strong></div>
+        <div><span>Discount</span><strong id="discount">$0</strong></div>
+        <div class="grand-total"><span>Total</span><strong id="grandTotal">$0</strong></div>
+      </div>
+      <div class="delivery-meta">
+        <span>⏱ 25–35 min</span>
+        <span>📍 Near Technopark Phase I
+Kazhakkoottam
+Thiruvananthapuram, Kerala – 695581
+India</span>
+      </div>
+      <button class="btn btn-primary full">Checkout</button>
+    </aside>
+  </div>
+  <div class="order-perks">
+    <div class="perk glass">
+      <h4>⚡ 25–35 min Delivery</h4>
+      <p>Hot beverages, cold brews and snacks made fresh and dispatched instantly.</p>
+    </div>
+    <div class="perk glass">
+      <h4>📦 Careful Packaging</h4>
+      <p>Leak-proof cups and insulated boxes so every sip arrives just right.</p>
+    </div>
+    <div class="perk glass">
+      <h4>💜 Loyalty Rewards</h4>
+      <p>Earn points on every order online and unlock free drinks and desserts.</p>
+    </div>
+  </div>
+  <div class="order-cta-wrap">
+    <a href="#order" class="btn btn-primary order-now-btn">Order Now</a>
+  </div>
+</section>
+
+<section class="section reveal testimonials">
+  <div class="section-heading">
+    <span class="eyebrow">Testimonials</span>
+    <h2>Guests love the ritual.</h2>
+  </div>
+  <div class="testimonial-slider glass">
+    <div class="testimonial-track">
+      <article class="testimonial-card active">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="Happy café customer" loading="lazy">
+        <div>
+          <p>“The ambiance feels like a luxury retreat. The coffee is elegant and the AI recommendations are spot on.”</p>
+          <strong>Amira · Trivandrum</strong>
+        </div>
+      </article>
+      <article class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Another happy café customer" loading="lazy">
+        <div>
+          <p>“I love the warm pastries and the sleek ordering experience. It feels curated and effortless.”</p>
+          <strong>Rohan · Kochi</strong>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="chat">
+  <div class="section-heading">
+    <span class="eyebrow">Velvet AI</span>
+    <h2>Your café concierge, always awake.</h2>
+  </div>
+  <div class="chat-window glass">
+    <div class="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <h3>Velvet AI</h3>
+        <span class="status"><span class="dot"></span> Online · helping with coffee, desserts & orders</span>
+      </div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg msg-bot">
+        <div class="bubble">Hi! I’m Velvet AI ☕ Welcome to Café Nova. I can recommend coffees, desserts, breakfast options, or help you place an order. What are you craving today?</div>
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="suggestion-chip">What’s today’s special?</button>
+      <button class="suggestion-chip">Recommend something sweet</button>
+      <button class="suggestion-chip">What are your hours?</button>
+    </div>
+    <form class="chat-input-row" id="chatForm">
+      {% csrf_token %}
+      <input type="text" id="chatInput" placeholder="Ask Velvet AI anything..." autocomplete="off" required>
+      <button type="submit" class="send-btn" id="sendBtn" aria-label="Send">➤</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

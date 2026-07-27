@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Cold coffee">
+  <rect width="640" height="480" rx="40" fill="#fffaf3"/>
+  <rect x="130" y="140" width="380" height="220" rx="34" fill="#f6ccb0"/>
+  <rect x="174" y="180" width="292" height="140" rx="24" fill="#8b4c2a"/>
+  <path d="M214 206h212c26 0 48 22 48 48v14c0 26-22 48-48 48H214c-26 0-48-22-48-48v-14c0-26 22-48 48-48z" fill="#c87438"/>
+  <path d="M240 170c22-26 52-42 86-42s64 16 86 42" stroke="#6f3d23" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M232 316h212" stroke="#fff3e3" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="486" cy="178" r="38" fill="#ffe9c7"/>
+</svg>
