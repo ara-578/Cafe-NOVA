@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ message: text }),
       });
 
+<<<<<<< HEAD
       let data = {};
       try {
         data = await response.json();
@@ -83,6 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       removeTyping();
       addMessage('Velvet AI is currently brewing fresh ideas. Please try again in a moment.', 'bot');
+=======
+      const data = await response.json();
+      removeTyping();
+      addMessage(data.reply || 'Sorry, something went wrong. Please try again. ☕', 'bot');
+    } catch (err) {
+      removeTyping();
+      addMessage('☕ Velvet AI is currently brewing fresh ideas. Please try again in a moment.', 'bot');
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
     } finally {
       if (sendBtn) sendBtn.disabled = false;
       if (chatInput) chatInput.focus();

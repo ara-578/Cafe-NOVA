@@ -298,10 +298,16 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 
 /* ---------- Chat FAB ---------- */
 .chat-fab {
+<<<<<<< HEAD
   position: fixed; bottom: 26px; right: 26px;  display: flex; align-items: center; gap: 8px;
   padding: 14px 20px; border-radius: 999px; /*background: linear-gradient(135deg, var(--violet-2), var(--pink-glow));
   color: #fff; font-weight: 600; font-size: .88rem; box-shadow: var(--glow-strong); */
   background:linear-gradient(45deg,rgba(255, 169, 99, 0.788),rgba(255, 138, 42, 0.656),rgba(255, 94, 0, 0.938));
+=======
+  position: fixed; bottom: 26px; right: 26px; z-index: 40; display: flex; align-items: center; gap: 8px;
+  padding: 14px 20px; border-radius: 999px; background: linear-gradient(135deg, var(--violet-2), var(--pink-glow));
+  color: #fff; font-weight: 600; font-size: .88rem; box-shadow: var(--glow-strong);
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
   animation: fab-float 3s ease-in-out infinite;
 }
 @keyframes fab-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
@@ -448,8 +454,12 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 .float-card:hover { animation-play-state: paused; }
 
 /* ---------- Masonry Gallery ---------- */
+<<<<<<< HEAD
 .masonry-grid { column-count: 3; column-gap: 16px;
 }
+=======
+.masonry-grid { column-count: 3; column-gap: 16px; }
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
 .masonry-item {
   position: relative; break-inside: avoid; margin-bottom: 16px; border-radius: var(--radius-md);
   overflow: hidden; box-shadow: var(--shadow); transition: transform .4s ease, box-shadow .4s ease;

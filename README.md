@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 # BrewMind Café 🍵 — with Velvet AI
+=======
+# Cafe NOVA
+🍵 — with Velvet AI
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
 
 A cozy, glassmorphism-styled café website built with Django, featuring **Velvet AI**,
 an AI barista chatbot powered by the **Agent Router** API.

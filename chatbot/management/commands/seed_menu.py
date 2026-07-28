@@ -26,7 +26,11 @@ MENU_DATA = [
      "https://images.unsplash.com/photo-1461988091159-192b6df7054f?auto=format&fit=crop&w=900&q=80"),
     ("Frappuccino", "cold", "Whipped coffee blended with ice and a caramel finish.", 5.75, False,
      "https://images.unsplash.com/photo-1517959105821-eaf2591984ca?auto=format&fit=crop&w=900&q=80"),
+<<<<<<< HEAD
     ("Burger", "cold", "Creamy vanilla milkshake topped with whipped cream and a cherry.", 5.25, False,
+=======
+    ("Milkshake", "cold", "Creamy vanilla milkshake topped with whipped cream and a cherry.", 5.25, False,
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80"),
 
     # Fresh Juices
@@ -78,7 +82,11 @@ MENU_DATA = [
      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80"),
     ("Tiramisu", "dessert", "Classic Italian layers, espresso-soaked and dusted with cocoa.", 6.25, True,
      "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80"),
+<<<<<<< HEAD
     ("Ice Cream Sundae", "dessert", "Layers of vanilla ice cream, rich chocolate sauce, and toppings.", 2.95, False,
+=======
+    ("Donuts", "dessert", "Soft glazed donuts dipped in rich chocolate ganache.", 2.95, False,
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
      "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=80"),
     ("Cupcakes", "dessert", "Vanilla sponge cupcakes topped with swirled buttercream.", 3.25, False,
      "https://images.unsplash.com/photo-1587668178277-295251f900ce?auto=format&fit=crop&w=900&q=80"),
@@ -95,8 +103,13 @@ class Command(BaseCommand):
         for name, category, description, price, is_special, image_url in MENU_DATA:
             obj, created = MenuItem.objects.update_or_create(
                 name=name,
+<<<<<<< HEAD
                 category=category,
                 defaults={
+=======
+                defaults={
+                    "category": category,
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
                     "description": description,
                     "price": price,
                     "is_special": is_special,

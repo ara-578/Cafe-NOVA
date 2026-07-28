@@ -1,5 +1,8 @@
 import json
+<<<<<<< HEAD
 from unittest.mock import patch
+=======
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
 
 from django.core import mail
 from django.test import TestCase, override_settings
@@ -10,6 +13,7 @@ from .models import ChatMessage, ContactMessage, MenuItem
 
 @override_django_settings(STORAGES={"staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"}})
 class ChatApiFallbackTests(TestCase):
+<<<<<<< HEAD
     @override_settings(AGENT_ROUTER_API_KEY="test-key")
     @patch("chatbot.views.requests.post")
     def test_general_question_uses_agent_router_response(self, mock_post):
@@ -53,6 +57,8 @@ class ChatApiFallbackTests(TestCase):
         self.assertIn("general questions", body["reply"])
 
     @override_settings(AGENT_ROUTER_API_KEY="")
+=======
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
     def test_greeting_returns_a_helpful_local_reply(self):
         response = self.client.post(
             "/api/chat/",

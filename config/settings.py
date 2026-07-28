@@ -6,6 +6,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
 
 def load_local_env(env_path):
     if not env_path.exists():
@@ -22,6 +23,8 @@ def load_local_env(env_path):
 
 load_local_env(BASE_DIR / ".env")
 
+=======
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
 # ---------------------------------------------------------------------------
 # SECURITY
 # ---------------------------------------------------------------------------
@@ -143,4 +146,7 @@ SERVER_EMAIL = os.environ.get("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
 # Inbox that receives every "Contact Us" form submission from the website.
 CONTACT_RECEIVER_EMAIL = os.environ.get("CONTACT_RECEIVER_EMAIL", "arathisb574@gmail.com")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32539cb6f48371f8b5bc1aaed5d747d51bbbbb8e
