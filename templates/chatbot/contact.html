@@ -1,0 +1,134 @@
+{% extends "chatbot/base.html" %}
+{% block title %}Contact · Café Nova{% endblock %}
+{% block content %}
+<section class="page-hero reveal">
+  <span class="eyebrow">Contact Café Nova</span>
+  <h1>We'd love to welcome you in.</h1>
+  <p>Whether you have a question, a custom order, or just want to say hello, our team is ready to respond.</p>
+</section>
+
+<section class="contact-wrap reveal">
+  <form method="post" class="contact-form glass" id="contactForm" novalidate>
+    {% csrf_token %}
+    <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+    <label>Name</label>
+    <input type="text" name="name" id="fName" placeholder="Your name" required>
+    <span class="field-error" data-error-for="fName"></span>
+
+    <label>Email</label>
+    <input type="email" name="email" id="fEmail" placeholder="you@example.com" required>
+    <span class="field-error" data-error-for="fEmail"></span>
+
+    <label>Phone</label>
+    <input type="tel" name="phone" id="fPhone" placeholder="Phone number">
+
+    <label>Subject</label>
+    <input type="text" name="subject" id="fSubject" placeholder="What is this about?" required>
+    <span class="field-error" data-error-for="fSubject"></span>
+
+    <label>Message</label>
+    <textarea name="message" id="fMessage" rows="5" placeholder="Tell us what you'd love to experience..." required></textarea>
+    <span class="field-error" data-error-for="fMessage"></span>
+
+    <button type="submit" class="btn btn-primary" id="contactSubmit">
+      <span class="btn-label">Send Message</span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+
+  <div class="contact-info glass">
+    <h3>Visit Us</h3>
+    <p>📍 Technopark, Trivandrum, Kerala, India</p>
+    <p>🕐 Monday–Sunday · 8 AM – 10 PM</p>
+    <p>📞 +91 99999 00000</p>
+    <p>📧 arathisb574@gmail.com</p>
+    <div class="map-card">
+      <iframe src="https://www.google.com/maps?q=Technopark%20Trivandrum&z=13&output=embed" loading="lazy" title="Café Nova location map"></iframe>
+    </div>
+    <a href="{% url 'home' %}#chat" class="btn btn-ghost">Chat with Velvet AI</a>
+  </div>
+</section>
+
+<div class="toast-wrap" id="toastWrap"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const submitBtn = document.getElementById('contactSubmit');
+    const toastWrap = document.getElementById('toastWrap');
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    function showToast(message, ok) {
+      const toast = document.createElement('div');
+      toast.className = `toast glass ${ok ? 'toast-success' : 'toast-error'}`;
+      toast.innerHTML = `<i class="fa-solid ${ok ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i><span>${message}</span>`;
+      toastWrap.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 4500);
+    }
+
+    function validate() {
+      let valid = true;
+      const fields = [
+        { id: 'fName', check: (v) => v.trim().length > 1, msg: 'Please enter your name.' },
+        { id: 'fEmail', check: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), msg: 'Enter a valid email address.' },
+        { id: 'fSubject', check: (v) => v.trim().length > 2, msg: 'Please add a short subject.' },
+        { id: 'fMessage', check: (v) => v.trim().length > 4, msg: 'Message is too short.' },
+      ];
+      fields.forEach(({ id, check, msg }) => {
+        const el = document.getElementById(id);
+        const errEl = document.querySelector(`[data-error-for="${id}"]`);
+        if (!check(el.value)) {
+          errEl.textContent = msg;
+          el.classList.add('invalid');
+          valid = false;
+        } else {
+          errEl.textContent = '';
+          el.classList.remove('invalid');
+        }
+      });
+      return valid;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+      if (submitBtn.disabled) return;
+
+      submitBtn.disabled = true;
+      form.classList.add('is-submitting');
+
+      try {
+        const response = await fetch(window.location.href, {
+          method: 'POST',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCookie('csrftoken') || '',
+          },
+          body: new FormData(form),
+        });
+        const data = await response.json();
+        showToast(data.message, data.ok);
+        if (data.ok) form.reset();
+      } catch (err) {
+        showToast('Network error. Please try again in a moment.', false);
+      } finally {
+        submitBtn.disabled = false;
+        form.classList.remove('is-submitting');
+      }
+    });
+  });
+</script>
+{% endblock %}

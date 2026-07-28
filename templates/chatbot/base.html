@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Café Nova is a premium AI-powered café experience featuring handcrafted coffee, artisan desserts, and Velvet AI.">
+  <title>{% block title %}Café Nova · Luxury Coffee & AI Café{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="shortcut icon" href="{% static 'img/favicon.svg' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="page-shell">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="navbar glass">
+      <a href="{% url 'home' %}" class="brand">
+        <span class="brand-mark">☕</span>
+        <span class="brand-text">Café <span class="accent">Nova</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="{% url 'home' %}#home">Home</a>
+        <a href="{% url 'home' %}#about">About</a>
+        <a href="{% url 'menu' %}">Menu</a>
+        <a href="{% url 'home' %}#gallery">Gallery</a>
+        <a href="{% url 'home' %}#order">Order Online</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'home' %}#chat" class="nav-cta">Velvet AI</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <main>
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for message in messages %}
+            <div class="flash glass {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <a class="chat-fab" href="{% url 'home' %}#chat" aria-label="Open Velvet AI" style="z-index: 1000;">
+      <span class="chat-fab-icon">🤖</span>
+      <span class="chat-fab-label">Ask Velvet AI</span>
+    </a>
+
+    <footer class="footer glass">
+      <div class="footer-grid">
+        <div>
+          <h3>Café Nova</h3>
+          <p>Where every sip inspires.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="{% url 'home' %}#home">Home</a>
+          <a href="{% url 'home' %}#about">About</a>
+          <a href="{% url 'menu' %}#menu">Menu</a>
+          <a href="{% url 'home' %}#order">Order Online</a>
+          <a href="{% url 'contact' %}">Contact</a>
+
+        </div>
+        <div>
+          <h4>Visit Us</h4>
+          <p>Near Technopark Phase I
+Kazhakkoottam
+Thiruvananthapuram, Kerala – 695581
+India</p>
+          <p>Mon–Sun · 8 AM – 10 PM</p>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram" data-social><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook" data-social><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="X (Twitter)" data-social><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="WhatsApp" data-social><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Newsletter</h4>
+          <p>Get specials &amp; updates in your inbox.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+          </form>
+          <span class="newsletter-msg" id="newsletterMsg"></span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Café Nova</span>
+        <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+      </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  </div>
+
+  <script src="{% static 'js/chat.js' %}"></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active');
+      });
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+  </script>
+  <script>
+    document.querySelectorAll('[data-social]').forEach((icon) => {
+      icon.addEventListener('click', function () {
+        this.classList.remove('glow-click');
+        void this.offsetWidth;
+        this.classList.add('glow-click');
+        setTimeout(() => this.classList.remove('glow-click'), 600);
+      });
+    });
+
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 420);
+      });
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterMsg = document.getElementById('newsletterMsg');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newsletterMsg.textContent = 'Thanks for subscribing! ☕';
+        newsletterForm.reset();
+        setTimeout(() => { newsletterMsg.textContent = ''; }, 4000);
+      });
+    }
+  </script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
