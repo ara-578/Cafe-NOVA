@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# BrewMind Café 🍵 — with Velvet AI
+# Cafe Nova 🍵 — with Velvet AI
 =======
 # Cafe NOVA
 🍵 — with Velvet AI
